@@ -93,11 +93,11 @@ from GHCR and point it at a PostgreSQL instance you provide (the bundled
 image):
 
 ```bash
-docker pull ghcr.io/<owner>/<repo>:latest
+docker pull ghcr.io/valsar6/node-ts-realtime-boilerplate:latest
 docker run -d -p 3000:3000 \
   -e DATABASE_URL=postgresql://<user>:<password>@<host>:5432/<db> \
   -e JWT_ACCESS_SECRET=<32+ random chars> \
   -e JWT_REFRESH_SECRET=<32+ random chars> \
-  ghcr.io/<owner>/<repo>:latest \
+  ghcr.io/valsar6/node-ts-realtime-boilerplate:latest \
   sh -c "npx prisma migrate deploy && node dist/server.js"
 ```
