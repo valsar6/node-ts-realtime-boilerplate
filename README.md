@@ -28,7 +28,7 @@ chat app.
 | Logging          | Winston (JSON in prod, pretty in dev)                |
 | Testing          | Jest + Supertest                                       |
 | Containerization | Docker (multistage)                                      |
-| CI/CD            | GitHub Actions → GHCR → VPS via SSH                        |
+| CI/CD            | GitHub Actions → GHCR                                      |
 
 ## Quick start
 
@@ -85,7 +85,7 @@ docker/
   Dockerfile            # multistage: deps → test → build → production
   docker-compose.yml     # app + Postgres
 .github/workflows/
-  ci-cd.yml              # test → build & push to GHCR → deploy to VPS
+  ci-cd.yml              # test → build & push to GHCR
 prisma/
   schema.prisma           # User, Room, Message
 docs/
@@ -95,7 +95,7 @@ docs/
     decisions.md                 # short-form ADRs for non-obvious choices
   guides/                      # problem-oriented, how-to
     testing.md                   # how to run and understand the test suite
-    deployment.md                  # how to build, run, and deploy
+    deployment.md                  # how to build, run, and ship
   reference/                    # information-oriented
     api.md                        # every REST endpoint and Socket.io event
 ```

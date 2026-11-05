@@ -20,7 +20,7 @@ four kinds of content, each answering a different question.
 
 - [testing.md](guides/testing.md) — how to run the test suite and what it
   covers.
-- [deployment.md](guides/deployment.md) — how to build, run, and deploy
+- [deployment.md](guides/deployment.md) — how to build, run, and ship
   with Docker and the CI/CD pipeline.
 
 ## Reference

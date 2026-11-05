@@ -9,7 +9,7 @@
 - [Multistage build](#multistage-build)
 - [docker-compose](#docker-compose)
 - [CI/CD pipeline](#cicd-pipeline)
-- [Required repository secrets](#required-repository-secrets)
+- [Running the published image](#running-the-published-image)
 
 ## Multistage build
 
@@ -65,11 +65,10 @@ accepting traffic — this is why `prisma` is a production dependency (see
 ```mermaid
 graph LR
     A[test] -->|main branch only| B[build-and-push]
-    B --> C[deploy]
 ```
 
 `.github/workflows/ci-cd.yml` runs on every push to `main` and every pull
-request, with three jobs:
+request, with two jobs:
 
 1. **`test`** — builds the Docker image up to the `test` stage. This
    reuses the exact same stage a local `docker build` would run, so
@@ -77,26 +76,28 @@ request, with three jobs:
 2. **`build-and-push`** — only runs on pushes to `main` (gated by
    `needs: test` and an `if` on `github.ref`), builds the `production`
    stage, and pushes it to GitHub Container Registry tagged with both the
-   commit SHA (for rollback) and `latest`.
-3. **`deploy`** — SSHes into the VPS, pulls the new image, and runs
-   `docker compose up -d`. Kept as a separate job (not a step inside
-   `build-and-push`) so a deploy failure is clearly attributable in the
-   Actions UI and can be re-run independently of rebuilding the image.
+   commit SHA (for rollback) and `latest`. It authenticates with the
+   built-in `GITHUB_TOKEN` (the job requests `packages: write`), so no
+   repository secrets need to be configured.
 
 > [!IMPORTANT]
-> Pull requests only trigger `test` — `build-and-push` and `deploy`
-> require `github.event_name == 'push'` on `main`, so a PR from a fork can
-> never push an image or trigger a deploy.
+> Pull requests only trigger `test` — `build-and-push` requires
+> `github.event_name == 'push'` on `main`, so a PR from a fork can never
+> push an image.
 
-## Required repository secrets
+## Running the published image
 
-| Secret | Purpose | Where used |
-| --- | --- | --- |
-| `GHCR_TOKEN` | Token with `write:packages` to push/pull from GHCR | `build-and-push`, `deploy` |
-| `VPS_HOST` | SSH host of the deployment target | `deploy` |
-| `VPS_USER` | SSH user on the VPS | `deploy` |
-| `VPS_SSH_KEY` | Private key for SSH auth (matching public key must be in the VPS's `authorized_keys`) | `deploy` |
+The pipeline stops at publishing the image. To run it elsewhere, pull it
+from GHCR and point it at a PostgreSQL instance you provide (the bundled
+`docker-compose.yml` builds from source, so it does not use the published
+image):
 
-> [!WARNING]
-> Never commit real values for these secrets. Configure them under
-> **Settings → Secrets and variables → Actions** in the GitHub repository.
+```bash
+docker pull ghcr.io/<owner>/<repo>:latest
+docker run -d -p 3000:3000 \
+  -e DATABASE_URL=postgresql://<user>:<password>@<host>:5432/<db> \
+  -e JWT_ACCESS_SECRET=<32+ random chars> \
+  -e JWT_REFRESH_SECRET=<32+ random chars> \
+  ghcr.io/<owner>/<repo>:latest \
+  sh -c "npx prisma migrate deploy && node dist/server.js"
+```
