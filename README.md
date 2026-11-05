@@ -1,6 +1,6 @@
 # node-ts-realtime-boilerplate
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Node >=20](https://img.shields.io/badge/node-%3E%3D20-339933.svg?logo=node.js&logoColor=white) ![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6.svg?logo=typescript&logoColor=white)
+[![CI/CD](https://github.com/valsar6/node-ts-realtime-boilerplate/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/valsar6/node-ts-realtime-boilerplate/actions/workflows/ci-cd.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Node >=20](https://img.shields.io/badge/node-%3E%3D20-339933.svg?logo=node.js&logoColor=white) ![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6.svg?logo=typescript&logoColor=white)
 
 A production-ready Node.js + TypeScript boilerplate for **realtime-first**
 applications: Express for REST, Socket.io for WebSocket, Prisma +
