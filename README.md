@@ -1,10 +1,12 @@
 # node-ts-realtime-boilerplate
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) ![Node >=20](https://img.shields.io/badge/node-%3E%3D20-339933.svg?logo=node.js&logoColor=white) ![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6.svg?logo=typescript&logoColor=white)
+
 A production-ready Node.js + TypeScript boilerplate for **realtime-first**
 applications: Express for REST, Socket.io for WebSocket, Prisma +
 PostgreSQL for persistence. Built as a reference architecture — clean
-enough to read end-to-end, opinionated enough to defend in a technical
-interview.
+enough to read end-to-end, opinionated enough to be a real starting
+point.
 
 ## Why "realtime-first"?
 
