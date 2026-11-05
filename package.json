@@ -3,6 +3,26 @@
   "version": "1.0.0",
   "description": "Production-ready Node.js + TypeScript boilerplate for realtime-first applications (Express, Socket.io, Prisma, PostgreSQL).",
   "license": "MIT",
+  "author": "Salvatore Dessupoiu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valsar6/node-ts-realtime-boilerplate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/valsar6/node-ts-realtime-boilerplate/issues"
+  },
+  "homepage": "https://github.com/valsar6/node-ts-realtime-boilerplate#readme",
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "express",
+    "socket.io",
+    "websocket",
+    "realtime",
+    "prisma",
+    "postgresql",
+    "boilerplate"
+  ],
   "private": true,
   "engines": {
     "node": ">=20.0.0"
